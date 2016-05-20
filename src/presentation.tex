@@ -3,19 +3,22 @@
 
 \usepackage[utf8]{inputenc}     % Umlaute
 \usepackage[ngerman]{babel}     % Umlaute
-\usepackage{minted}             % nice Code presentation (Syntax Highlighting)
+\usepackage{minted}             % nice Code presentation (e.g. syntax highlighting)
 \usepackage{svg}                % including svg
-\usepackage{graphicx}           % including pictures
+\usepackage{graphicx}           % including png, jpg
 \usepackage{fontspec}           % use any of your installed fonts
-\usepackage{tikz}               % Logo in the top right corner
+\usepackage{tikz}               % here: to include a logo on every page
 
 % define a color for the Stud.IP-Look
 \definecolor{studipblue}{RGB}{48,84,136}
 
 % Main theme
+% There are many different themes available for Beamer. A comprehensive
+% list with examples is given here:
+% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
 \usetheme{Madrid}
 
-% inner color themes (blocks etc.)
+% inner color theme (blocks etc.)
 \usecolortheme{rose}
 % Equations should look different
 \usefonttheme[onlymath]{serif}
@@ -29,14 +32,36 @@
 \setbeamerfont{footline}{family=\fontspec{Lato-Light}}
 \setbeamercolor{structure}{fg=studipblue}
 
+% remove the navigation symbols in the lower right corner
+\beamertemplatenavigationsymbolsempty
 
-\title{Globale Suche}
+% Main title
+\title{Make the Wall great again}
 % A subtitle is optional and this may be deleted
 \subtitle{\includegraphics[height=8mm]{../img/studip-logo@2x}}
 
-\author{Manuel Schwarz}
-\institute[Uni Osnabrück]{\inst{} virtUOS\\ Universität Osnabrück}
-\date{IWB, 31. Mai 2016}
+\author{John Snow}
+% Institute and University (use the '[...]' brackets to display a
+% different/shorter version in the footline)
+\institute[Night's Watch]{\inst{} Castle Black\\ The Wall}
+% Conference name and date
+\date{Choosing, \today}
+
+% If there are more than one speaker and they are from different Institutes:
+%\author{F.~Author\inst{1} \and S.~Another\inst{2}}
+%% - Give the names in the same order as the appear in the paper.
+%% - Use the \inst{?} command only if the authors have different
+%%   affiliation.
+%
+%\institute[Universities of Somewhere and Elsewhere] % (optional, but mostly needed)
+%{
+%  \inst{1}%
+%  Department of Computer Science\\
+%  University of Somewhere
+%  \and
+%  \inst{2}%
+%  Department of Theoretical Philosophy\\
+%  University of Elsewhere}
 
 
 % This is only inserted into the PDF information catalog. Can be left out.
@@ -51,16 +76,15 @@
 
 % Delete this, if you do not want the table of contents to pop up at
 % the beginning of each subsection:
-%\AtBeginSubsection[]
-%{
-%  \begin{frame}<beamer>{Outline}
-%    \tableofcontents[currentsection,currentsubsection]
-%  \end{frame}
-%}
+\AtBeginSubsection[]{\begin{frame}<beamer>{Outline}
+                        \tableofcontents[currentsection,currentsubsection]
+                     \end{frame}
+}
 
 % Start of the presentation
 \begin{document}
 
+% The 'frame'-command must not be indented!
 \begin{frame}
     \titlepage
 \end{frame}
@@ -84,8 +108,10 @@
 
 \begin{frame}[fragile]{First Slide Title}{Optional Subtitle}
     \begin{itemize}
-        \item {My first point.\pause}
-        \item {My second point.\pause}
+        \item {My first point.}
+        \item {My second point.}
+
+        % Example for a code snippet inside an \item (without a leading bullet)
         \item[]{\begin{minted}[linenos, autogobble, numbersep=5pt, frame=lines, framesep=2mm]{java}
                     String title = "This is a unicorn in the sky";
                     // This is a comment
