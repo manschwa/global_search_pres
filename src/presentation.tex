@@ -1,40 +1,46 @@
+% run with 'xelatex --shell-escape'
 \documentclass{beamer}
 
-\usepackage[utf8]{inputenc}
-\usepackage[ngerman]{babel}
-\usepackage{minted}
-\usepackage{mathptmx}
-\usepackage{svg}
-\usepackage{graphicx}
-\usepackage{tikz}
+\usepackage[utf8]{inputenc}     % Umlaute
+\usepackage[ngerman]{babel}     % Umlaute
+\usepackage{minted}             % nice Code presentation (Syntax Highlighting)
+\usepackage{svg}                % including svg
+\usepackage{graphicx}           % including pictures
+\usepackage{fontspec}           % use any of your installed fonts
+\usepackage{tikz}               % Logo in the top right corner
 
+% define a color for the Stud.IP-Look
 \definecolor{studipblue}{RGB}{48,84,136}
+
+% Main theme
 \usetheme{Madrid}
 
+% inner color themes (blocks etc.)
 \usecolortheme{rose}
+% Equations should look different
 \usefonttheme[onlymath]{serif}
+
+% define custom fonts
 \usefonttheme{professionalfonts}
 \usefonttheme{serif}
-\usepackage{fontspec}
 \setbeamerfont{title}{size=\Huge, family=\fontspec{Lato-Thin}}
 \setbeamerfont{structure}{family=\fontspec{Lato-Thin}}
 \setbeamerfont{title page}{family=\fontspec{Lato-Thin}}
 \setbeamerfont{footline}{family=\fontspec{Lato-Light}}
 \setbeamercolor{structure}{fg=studipblue}
 
+
 \title{Globale Suche}
 % A subtitle is optional and this may be deleted
 \subtitle{\includegraphics[height=8mm]{../img/studip-logo@2x}}
 
 \author{Manuel Schwarz}
-%\institute{virtUOS\\Universität Osnabrück}
 \institute[Uni Osnabrück]{\inst{} virtUOS\\ Universität Osnabrück}
-\date{IWB, \today}
+\date{IWB, 31. Mai 2016}
 
 
+% This is only inserted into the PDF information catalog. Can be left out.
 \subject{Theoretical Computer Science}
-% This is only inserted into the PDF information catalog. Can be left
-% out.
 
 % If you have a file called "university-logo-filename.xxx", where xxx
 % is a graphic format that can be processed by latex or pdflatex,
@@ -52,13 +58,14 @@
 %  \end{frame}
 %}
 
-% Let's get started
+% Start of the presentation
 \begin{document}
 
 \begin{frame}
     \titlepage
 \end{frame}
 
+% Set the logo in the top right corner of every frametitle
 \addtobeamertemplate{frametitle}{}{%
 \begin{tikzpicture}[remember picture,overlay]
 \node[anchor=north east,yshift=2pt] at (current page.north east) {\includegraphics[height=0.6cm]{../img/studip-logo@2x}};
