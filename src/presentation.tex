@@ -2,53 +2,33 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
-
+\usepackage{minted}
 \usepackage{mathptmx}
-\usepackage{helvet}
+\usepackage{svg}
+\usepackage{graphicx}
+
 \definecolor{studipblue}{RGB}{48,84,136}
-%\usetheme{AnnArbor}
-%\usetheme{Antibes}
-%\usetheme{Bergen}
-%\usetheme{Berkeley}
-%\usetheme{Berlin}
-%\usetheme{Boadilla}
-%\usetheme{boxes}
-%\usetheme{CambridgeUS}
-%\usetheme{Copenhagen}
-%\usetheme{Darmstadt}
-%\usetheme{default}
-%\usetheme{Frankfurt}
-%\usetheme{Goettingen}
-%\usetheme{Hannover}
-%\usetheme{Ilmenau}
-%\usetheme{JuanLesPins}
-%\usetheme{Luebeck}
 \usetheme{Madrid}
-%\usetheme{Malmoe}
-%\usetheme{Marburg}
-%\usetheme{Montpellier}
-%\usetheme{PaloAlto}
-%\usetheme{Pittsburgh}
-%\usetheme{Rochester}
-%\usetheme{Singapore}
-%\usetheme{Szeged}
-%\usetheme{Warsaw}
 
 \usecolortheme{rose}
 \usefonttheme[onlymath]{serif}
-\usefonttheme{structuresmallcapsserif}
+\usefonttheme{professionalfonts}
+\usefonttheme{serif}
+\usepackage{fontspec}
+\setbeamerfont{title}{size=\Huge, family=\fontspec{Lato-Thin}}
+\setbeamerfont{structure}{family=\fontspec{Lato-Thin}}
+\setbeamerfont{title page}{family=\fontspec{Lato-Thin}}
+\setbeamerfont{footline}{family=\fontspec{Lato-Light}}
 \setbeamercolor{structure}{fg=studipblue}
 
 \title{Globale Suche}
 % A subtitle is optional and this may be deleted
-\subtitle{Stud.IP}
+\subtitle{\includegraphics[height=8mm]{../img/studip-logo@2x}}
 
 \author{Manuel Schwarz}
 %\institute{virtUOS\\Universität Osnabrück}
 \institute[Uni Osnabrück]{\inst{} virtUOS\\ Universität Osnabrück}
 \date{IWB, \today}
-
-
 
 
 \subject{Theoretical Computer Science}
@@ -75,12 +55,12 @@
 \begin{document}
 
 \begin{frame}
-  \titlepage
+    \titlepage
 \end{frame}
 
 \begin{frame}{Outline}
-  \tableofcontents
-  % You might wish to add the option [pausesections]
+    \tableofcontents
+    % You might wish to add the option [pausesections]
 \end{frame}
 
 % Section and subsections will appear in the presentation overview
@@ -89,11 +69,17 @@
 
 \subsection{First Subsection}
 
-\begin{frame}{First Slide Title}{Optional Subtitle}
-  \begin{itemize}
-  \item {My first point.}
-  \item {My second point.}
-  \end{itemize}
+\begin{frame}[fragile]{First Slide Title}{Optional Subtitle}
+    \begin{itemize}
+        \item {My first point.\pause}
+        \item {My second point.\pause}
+        \item[]{\begin{minted}[linenos, autogobble, numbersep=5pt, frame=lines, framesep=2mm]{java}
+                    String title = "This is a unicorn in the sky";
+                    // This is a comment
+                    final double PI = 3.1415926535;
+                \end{minted}
+        }
+    \end{itemize}
 \end{frame}
 
 \subsection{Second Subsection}
@@ -101,11 +87,11 @@
 % You can reveal the parts of a slide one at a time
 % with the \pause command:
 \begin{frame}{Second Slide Title}
-  \begin{itemize}
-  \item {First item.
-    \pause % The slide will pause after showing the first item
-  }
-  \item {Second item. $Inc_{0} = M * 42$}
+    \begin{itemize}
+        \item {First item.
+            \pause % The slide will pause after showing the first item
+        }
+        \item {Second item. $Inc_{0} = M * 42$}
   % You can also specify when the content should appear
   % by using <n->:
   \item<3-> {Third item.}
@@ -145,7 +131,7 @@ Here is an example of an example block.
   \item
     Perhaps a \alert{third message}, but not more than that.
   \end{itemize}
-  
+
   \begin{itemize}
   \item
     Outlook
@@ -160,16 +146,16 @@ Here is an example of an example block.
 
 
 
-% All of the following is optional and typically not needed. 
+% All of the following is optional and typically not needed.
 \appendix
 \section<presentation>*{\appendixname}
 \subsection<presentation>*{For Further Reading}
 
 \begin{frame}[allowframebreaks]
   \frametitle<presentation>{For Further Reading}
-    
+
   \begin{thebibliography}{10}
-    
+
   \beamertemplatebookbibitems
   % Start with overview books.
 
@@ -177,8 +163,8 @@ Here is an example of an example block.
     A.~Author.
     \newblock {\em Handbook of Everything}.
     \newblock Some Press, 1990.
- 
-    
+
+
   \beamertemplatearticlebibitems
   % Followed by interesting articles. Keep the list short. 
 
@@ -191,6 +177,5 @@ Here is an example of an example block.
 \end{frame}
 
 \end{document}
-
 
 \grid
