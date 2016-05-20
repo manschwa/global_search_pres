@@ -6,6 +6,7 @@
 \usepackage{mathptmx}
 \usepackage{svg}
 \usepackage{graphicx}
+\usepackage{textpos}
 
 \definecolor{studipblue}{RGB}{48,84,136}
 \usetheme{Madrid}
@@ -57,6 +58,11 @@
 \begin{frame}
     \titlepage
 \end{frame}
+
+\addtobeamertemplate{frametitle}{}{%
+\begin{textblock*}{100mm}(.85\textwidth,-8mm)
+\includegraphics[height=6mm]{../img/studip-logo@2x}
+\end{textblock*}}
 
 \begin{frame}{Outline}
     \tableofcontents
