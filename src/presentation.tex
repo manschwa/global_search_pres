@@ -15,6 +15,8 @@
 % Main theme
 \usetheme{Madrid}
 
+% Main color theme
+\setbeamercolor{structure}{fg=studipblue}
 % inner color themes (blocks etc.)
 \usecolortheme{rose}
 % Equations should look different
@@ -26,9 +28,20 @@
 \setbeamerfont{title}{size=\Huge, family=\fontspec{Lato-Thin}}
 \setbeamerfont{structure}{family=\fontspec{Lato-Thin}}
 \setbeamerfont{title page}{family=\fontspec{Lato-Thin}}
+\setbeamerfont{subsection in toc}{size=\small, family=\fontspec{Lato-Regular}}
+\setbeamerfont{bibliography entry author}{family=\fontspec{Lato-Regular}}
+\setbeamerfont{bibliography entry title}{family=\fontspec{Lato-Thin}}
+\setbeamerfont{block title}{family=\fontspec{Lato-Thin}}
+\setbeamerfont{block body}{size=\small, family=\fontspec{Lato-Regular}}
+\setbeamerfont{block title example}{family=\fontspec{Lato-Thin}}
+\setbeamerfont{block body example}{size=\small, family=\fontspec{Lato-Regular}}
 \setbeamerfont{footline}{family=\fontspec{Lato-Light}}
-\setbeamercolor{structure}{fg=studipblue}
 
+%\setbeamertemplate{section in toc}{\inserttocsectionnumber.\,~\inserttocsection}
+%\setbeamertemplate{subsection in toc}[default]%{\inserttocsectionnumber.\,~\inserttocsection}
+\setbeamertemplate{sections/subsections in toc}[default]%{\inserttocsectionnumber.\,~\inserttocsection}
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
 \beamertemplatenavigationsymbolsempty
 
 \title{Globale Suche}
@@ -41,7 +54,7 @@
 
 
 % This is only inserted into the PDF information catalog. Can be left out.
-\subject{Theoretical Computer Science}
+%\subject{Theoretical Computer Science}
 
 % If you have a file called "university-logo-filename.xxx", where xxx
 % is a graphic format that can be processed by latex or pdflatex,
@@ -72,124 +85,163 @@
 \node[anchor=north east,yshift=2pt] at (current page.north east) {\includegraphics[height=0.6cm]{../img/studip-logo@2x}};
 \end{tikzpicture}}
 
-\begin{frame}{Outline}
+\begin{frame}{Überblick}
     \tableofcontents
     % You might wish to add the option [pausesections]
 \end{frame}
 
+
 % Section and subsections will appear in the presentation overview
 % and table of contents.
-\section{First Main Section}
+\section{Das Ziel}
+\subsection{Wunschliste}
 
-\subsection{First Subsection}
-
-\begin{frame}[fragile]{First Slide Title}{Optional Subtitle}
+\begin{frame}{Wunschliste}{Das Ziel}
     \begin{itemize}
-        \item {My first point.\pause}
-        \item {My second point.\pause}
-        \item[]{\begin{minted}[linenos, autogobble, numbersep=5pt, frame=lines, framesep=2mm]{java}
-                    String title = "This is a unicorn in the sky";
-                    // This is a comment
-                    final double PI = 3.1415926535;
-                \end{minted}
-        }
+        \item {\textit{eine} zentrale Suche\pause}
+        \item {Google-ähnliche Suchleiste\pause}
+        \item {mit maximal 1 Klick erreichbar\pause}
+        \item {Quicksearch-Leiste (von überall erreichbar)\pause}
+        \item {ansprechende Präsentation der Ergebnisse (Sortierung)\pause}
+        \item {Filtermöglichkeit der Ergebnisse}
     \end{itemize}
 \end{frame}
 
-\subsection{Second Subsection}
+
+\section{Der Weg}
+\subsection{Bisherige Suche}
 
 % You can reveal the parts of a slide one at a time
 % with the \pause command:
-\begin{frame}{Second Slide Title}
+\begin{frame}{Bisherige Suche}{Der Weg}
     \begin{itemize}
-        \item {First item.
-            \pause % The slide will pause after showing the first item
+        \item {nach Bereichen aufgeteilte Suche\pause}
+        \item[]{%
+            \begin{itemize}
+                \item{Veranstaltungen}
+                \item{Archiv}
+                \item{Personen}
+                \item{Einrichtungen}
+                \item{Ressourcen\pause}
+            \end{itemize}
         }
-        \item {Second item. $Inc_{0} = M * 42$}
-  % You can also specify when the content should appear
-  % by using <n->:
-  \item<3-> {Third item.}
-  \item<4-> {Fourth item.}
-  % or you can use the \uncover command to reveal general
-  % content (not just \items):
-  \item<5-> {Fifth item. \uncover<6->{Extra text in the fifth item.}}
+    \item {Quicksearch-Leiste \textit{nur} für Veranstaltungen\pause}
+    \item {Code nicht zentral an einer Stelle\pause}
+    \item {Keine zusätzlichen Daten/Tabellen}
   \end{itemize}
 \end{frame}
 
-\section{Second Main Section}
 
-\subsection{Another Subsection}
+\subsection{Plugins}
+\subsubsection{ItelligentSearch (fl0)}
 
-\begin{frame}{Blocks}
-\begin{block}{Block Title}
-You can also highlight sections of your presentation in a block, with it's own title
-\end{block}
-\begin{theorem}
-There are separate environments for theorems, examples, definitions and proofs.
-\end{theorem}
-\begin{example}
-Here is an example of an example block.
-\end{example}
-\end{frame}
-
-% Placing a * after \section means it will not show in the
-% outline or table of contents.
-\section*{Summary}
-
-\begin{frame}{Summary}
-  \begin{itemize}
-  \item
-    The \alert{first main message} of your talk in one or two lines.
-  \item
-    The \alert{second main message} of your talk in one or two lines.
-  \item
-    Perhaps a \alert{third message}, but not more than that.
-  \end{itemize}
-
-  \begin{itemize}
-  \item
-    Outlook
+\begin{frame}{IntelligentSearch}{Plugin (fl0)}
     \begin{itemize}
-    \item
-      Something you haven't solved.
-    \item
-      Something else you haven't solved.
+        \item {Zentrale Suche}
+        \item[]{%
+            \begin{itemize}
+                \item{Veranstaltungen}
+                \item{Personen}
+                \item{Einrichtungen}
+                \item{Ressourcen}
+                \item{Vorlesungsverzeichnis}
+                \item{Dokumente/Dateien}
+                \item{Foreneinträge}
+                \item{Wiki\pause}
+            \end{itemize}
+        }
+    \item {Quicksearch-Leiste\pause}
+    \item {zwei zusätzliche Tabellen}
+    \begin{itemize}
+        \item {search\_object}
+        \item {search\_index}
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 
+\subsubsection{GlobalSearchPlugin (Krassmus)}
 
-% All of the following is optional and typically not needed.
-\appendix
-\section<presentation>*{\appendixname}
-\subsection<presentation>*{For Further Reading}
-
-\begin{frame}[allowframebreaks]
-  \frametitle<presentation>{For Further Reading}
-
-  \begin{thebibliography}{10}
-
-  \beamertemplatebookbibitems
-  % Start with overview books.
-
-  \bibitem{Author1990}
-    A.~Author.
-    \newblock {\em Handbook of Everything}.
-    \newblock Some Press, 1990.
-
-
-  \beamertemplatearticlebibitems
-  % Followed by interesting articles. Keep the list short. 
-
-  \bibitem{Someone2000}
-    S.~Someone.
-    \newblock On this and that.
-    \newblock {\em Journal of This and That}, 2(1):50--100,
-    2000.
-  \end{thebibliography}
+\begin{frame}{GlobalSearchPlugin}{Plugin (Krassmus)}
+    \begin{itemize}
+        \item {Zentrale Suche}
+        \item[]{%
+            \begin{itemize}
+                \item{Veranstaltungen}
+                \item{Personen}
+                \item{Dokumente}
+                \item{Foreneinträge}
+                \item{Ressourcen\pause}
+            \end{itemize}
+        }
+        \item {keine Quicksearch-Leiste\pause}
+        \item {eine zusätzliche Tabelle (searchindex)\pause}
+        \item {nette Präsentation}
+    \end{itemize}
 \end{frame}
 
-\end{document}
 
-\grid
+\begin{frame}{Probleme}
+    \begin{itemize}
+        \item {Erstellen der Index-Tabelle\pause}
+            \begin{itemize}
+                \item {bisher nur manuell mit root-Rechten}
+                \item {keine Automatisierung\pause}
+                \item {neue Datensätze nicht sofort auffindbar\pause}
+                \item {wird immer komplett neu erstellt\pause}
+            \end{itemize}
+        \item {Rechtefrage (Wer darf was sehen/finden?)\pause}
+            \begin{itemize}
+                \item {Root und Admin sollten alles sehen dürfen\pause}
+                \item {Dateien, Wiki, Forum (im Veranstaltungskontext)\pause}
+                \item {Rest: global für jeden zu finden (visibility?)\pause}
+            \end{itemize}
+        \item {Aufbereitung der Ergebnisse\pause}
+            \begin{itemize}
+                \item {Sortierung}
+                \item {Priorisierung\pause}
+                \item {Gruppierung\pause}
+                \item {Beispiel: Suche nach Dozent}
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\subsection{Idee}
+
+\begin{frame}{Idee(n)}
+    \begin{itemize}
+        \item {keine Index-Tabelle\pause~\uncover{- kein Aktualisierungsproblem\pause}}
+        \item {Brute Force?\pause}
+        \item {Activities?!\pause}
+            \begin{itemize}
+                \item {extra Tabelle\pause}
+                \item {wächst dynamisch\pause}
+                \item {nicht alle Einträge relevant (nur created/deleted)\pause}
+                \item {Activities gibt es nicht rückwirkend\pause}
+                \begin{itemize}
+                    \item {Erstellung mit dem Start der Installation\pause}
+                    \item {einmaligen/einfachen Activity-Generator\pause}
+                \end{itemize}
+                \item {Suche:\pause}
+                \begin{itemize}
+                    \item {content-Spalte durchsuchen\pause}
+                    \item {object\_type, object\_id, context\pause}
+                \end{itemize}
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+%\begin{frame}{Blocks}
+%\begin{block}{Block Title}
+%You can also highlight sections of your presentation in a block, with it's own title
+%\end{block}
+%\begin{theorem}
+%There are separate environments for theorems, examples, definitions and proofs.
+%\end{theorem}
+%\begin{example}
+%Here is an example of an example block.
+%\end{example}
+%\end{frame}
+
+\end{document}
