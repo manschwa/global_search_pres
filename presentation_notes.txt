@@ -1,0 +1,39 @@
+Praesentationsnotizen IWB 31.05.2016
+======================================================================
+
+WUNSCHLISTE / VERBESSERUNGEN / IDEEN
+--------------------------------------------------
+= separater Suchindex mit externer Software
+    - elasticsearch
+        . Java/json
+        . sehr performant
+        . gut skalierbar
+
+    - sphinx
+
+= Volltextindex auf bestehenden Tabellen (Stud.IP-DB)
+
+= Veranstaltungssuche
+    - 2 Begriffe fuehren zu keinem Ergebnis
+    - Bsp. 'Oliver Vornberger' findet nichts, 'Vornberger' schon
+
+= 2 stufige Suche
+    - initial (grob, findet alles)
+    - weitere Suchoptionen (fein, filtert nach weiteren Optionen)
+
+= Praesentation
+    - Ranking?
+    - Kombifilter mit Checkboxes (siehe z.B. Amazon)
+        . Semester
+        . Veranstaltungen (z.B.)
+    - mit 'Back'-Button einfach zurueck zur Suche
+    - Forumeintrag
+        . Datum
+        . Text mit den ersten 120 Zeichen
+
+= Quicksearch (fortgeschrittene Aenderung)
+    - nur noch dieses Suchfeld
+    - Suchbegriff eintippen und
+    - Ergebnisse mit voreingestellten Filtern anzeigen
+
+= Suchergebnisse innerhalb der Veranstaltungen
