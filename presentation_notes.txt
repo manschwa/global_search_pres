@@ -37,3 +37,9 @@ WUNSCHLISTE / VERBESSERUNGEN / IDEEN
     - Ergebnisse mit voreingestellten Filtern anzeigen
 
 = Suchergebnisse innerhalb der Veranstaltungen
+
+= Inhalt von Dateien ebenfalls durchsuchen
+
+= Schwarzes Brett durchsuchen
+  (dann müsste es Plugins durch eine Schnittstelle auch möglich sein
+  ihren Inhalt zu registrieren und suchbar zu machen)
