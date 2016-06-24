@@ -1,0 +1,174 @@
+Globale Suche (Grundlage fl0)
+====================================================================================
+(Stand: Entwicklerbesprechung vom 08.06.2016)
+
+--  2 neue Tabellen: 'search_object' und 'search_index'
+    - search_object: enthaelt alle 'Objekte', die gefunden werden koennen
+    - search_index: gibt vor anhand welcher Strings die Objekte gefunden werden können
+    - FULLTEXT search ueber die 'text'-Spalte von search_index
+
+--  Indizierung kann nur von Root angestossen werden, sollte evtl. automatisch passieren.
+    (Wann und wie? CronJob?)
+    Immer, wenn ein neues search_object angelegt wird ein hook-Event auslösen, dass nur
+    den neuen Eintrag in die DB schreibt.
+    PROBLEM: z.B. Aenderung des Namens einer Einrichtung, eines Dozenten =>
+             Eintraege muessten in allen betroffenen Zeilen der search_index
+             Tabelle geaendert werden (z.B. Veranstaltungen)
+    LOESUNG: zumindest evtl. siehe nächsten Punkt
+
+--  evtl. viele Eintraege mehrfach in der search_index Tabelle (Bsp.: Dozent fuer jede seiner Vorlesungen
+    und jeden seiner Forumeintraege), vllt. nicht wirklich zu vermeiden
+    Generell wird die Tabelle search_index sehr schnell sehr gross.
+    - LOESUNG: evtl. 2-stufige Suche wenn man Benutzer mit ihren Forenbeitraegen sucht:
+      (um die Groesse Tabellen klein zu halten)
+      zuerst Benutzer aus der search_index finden und dann mit user_id durch weitere
+      Tabellen hangeln und evtl. Vorlesungen/Forenbeitraege
+
+--  IntelligentSearch:
+- global für jeden zu finden (ausser es ist invisible (z.B. Veranstaltungen, User)): Root und Admin duerfen alles sehen!?
+    - Veranstaltungen
+        - Kriterien: Veranstaltungsnummer, Veranstaltungsname, Untertitel, Beschreibung, Sonstiges, Dozent.Titel, Dozent.Vorname, Dozent.Nachname)
+        - Tabellen:
+            - seminare
+                - Seminar_id
+                - VeranstaltungsNummer
+                - Name
+                - Untertitel
+                - Beschreibung
+                - Sonstiges
+                - status (Tabelle: sem_types)
+                    [1 => (Vorlesung, Seminar, Uebung, Praktikum, Colloquium, Forschungsgruppe),
+                     2 => (Gremium, Projektgruppe),
+                     3 => (Kulturforum, Veranstaltungsboard),
+                     99 => Studiengruppe]
+            (fuer den Dozenten der Veranstaltung)
+            - seminar_user
+            - auth_user_md5
+                - Vorname
+                - Nachname
+            - user_info
+                -title_front
+    - Personen
+        - Kriterien: Vorname, Nachname, username
+        - Tabellen:
+            - auth_user_md5
+                - user_id
+                - username
+                - Vorname
+                - Nachname
+            - user_visibility
+                - search [0|1]
+            - user_info
+                - title_front
+                - title_rear
+    - Einrichtungen
+        - Kriterien: Name
+        - Tabellen:
+            - Institute
+                - Institut_id
+                - Name
+    - Ressourcen
+        - Kriterien: Name, Beschreibung
+        - Tabellen:
+            - resources_objects
+                - name
+                - description
+                - resource_id
+    - Vorlesungsverzeichnis
+    - Nachrichten (neu)
+    - Meine Dateien (neu)
+- Haengt an einer Veranstaltung/Einrichtung (Rechtefrage klaeren)
+    - Dokumente/Dateien
+      (Name, Beschreibung)
+      Rechte: StudipDocument.class->checkAccess($user_id)
+    - Foreneintraege
+      (Titel, Content, Autor (Vor-, Nachname, Username))
+    - Wiki
+      (Titel, Beschreibung)
+
+--  Wer findet was?
+    - Root findet alles oben genannte (Ok.) getCondition() greift nicht.
+    - alle nicht-root Nutzer haben teilweise Beschraenkungen bei der Suche (je nach Object: getCondition())
+    - Sollte ein Admin auch alles finden können? (ist derzeit nicht der Fall)
+    - Niemand (ausser Root) findet Benutzer im Testsystem, da die Tabelle 'user_visibility' leer ist
+      und in 'auth_user_md5.visible' nur 'unknown' steht (IndexObject_User.php->getCondition()).
+    - Admin findet seinen eigenen Forenbeitrag nicht, wenn Admin sich nicht in der Veranstaltung befindet.
+    - Rechtefrage klaeren: vor oder nach der Suche?
+    - Rechte-API: Stud.IP-Document-Klasse
+        - Dateien: StudipDocument.class->checkAccess();
+    - Rechte im Kontext der Veranstaltung (Forenbeitrag/Dateien/Wiki)
+    - Sonderfaelle:
+        - Datei: Ordner mit eingeschraenkten Rechten
+        - Forenbeitrag: Autor kann annonym sein
+
+--  Was will man angezeigt bekommen, wenn man z.B. nach einem Dozenten sucht?
+    Profil, Veranstaltungen (alt + aktuell), Forenbeitraege (in welcher Reihenfolge?)
+    - Reihenfolge selbst festlegen? (magic relevance-numbers fuer jede Klasse; so ist es derzeit)
+    - oder mal die automatisch generierte relevance von InnoDB testen (IN NATURAL LANGUAGE MODE)
+
+--  Was ist mit fuzzy-Search, unscharfe Suche? Volltextsuche von Dokumenten? Evtl. später!
+
+--  MyISAM vs. InnoDB
+    - InnoDB erst ab Stud.IP Version 3.4
+    - InnoDB FTS erst ab MySQL 5.6 (fuer Stud.IP 3.4 empfohlen: MySQL 5.5)
+    - trunk -> 3.5
+    - fuer InnoDB "DISABLE/ENABLE KEYS" raus, da dies nur fuer MyISAM gilt
+
+--  Generell: Was ist mit dem 'Podium'-Plugin (siehe Quicksearch auf develop.studip.de)?
+
+--  zur Zeit: InnoDB Syntax-Error bei angehaengtem '-' bzw. '+', fuehrendem '-+' oder '+-'
+    (siehe FULLTEXT Search: IN BOOLEAN MODE)
+
+--  Die Vorlesung "Test Studiengruppe" wird nicht in die Tabelle 'search_object' mit aufgenommen,
+    da die 'start_time' in keines der vorhandenen Semester faellt
+    (semester_data: im Testsystem sind nur das WS15/16 und SS16 vorhanden)
+
+--  Man kann nicht nach dem Forumeintragstitel suchen, nur nach dem Inhalt und dem Verfasser.
+    (fixed: Titel in search_index aufgenommen)
+
+--  Das Wort 'Autor' wird in dem Verfasser eines Forumeintrags stets vorausgestellt.
+    Folge: Sucht man nach 'Autor', so findet man alle Foreneintraege von all seinen Veranstaltungen.
+    (fixed: 'Autor:' aus search_index geloescht)
+
+--  Es werden auch leere Resultsets in der Sidebar angezeigt (Alle (0)). (fixed)
+
+--  Leere Eintraege in den Tabellen search_index / search_object
+    - auch leere 'descriptions' werden in 'search_index' geschrieben (z.B. bei Resourcen, Dokumenten) (fixed)
+    - 'search_object' uebernimmt einfach leere Eintraege aus sem_tree (fixed)
+
+
+# MySQL 5.6 FULLTEXT Search (zur Info)
+===============================================================================
+--  FULLTEXT Search (vllt. vorhandene Funktionalitaeten nutzen: z.B. relevance, stopword-list)
+    - FULLTEXT Index muss fuer die jeweiligen COLUMNS gesetzt sein
+    - MATCH (col1, col2,...) AGAINST ('search_term' [MODIFIER])
+        - MODIFIER: - (1) IN NATURAL LANGUAGE MODE (default)
+                    - (2) IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION
+                    - (3) IN BOOLEAN MODE
+                    - (4) WITH QUERY EXPANSION
+    (1) - InnoDB berechnet eine SCORE (Relevanz) fuer jede ROW im ResultSet des search_terms
+        - Relevance is computed based on the number of words in the row,
+          the number of unique words in that row,
+          the total number of words in the collection
+          (A collection is a set of one or more columns included in a FULLTEXT index.),
+          and the number of documents (rows) that contain a particular word.
+        - 'text' findet nicht "xxxtextxxx"
+        - case-insensitiv
+        - The default minimum length of words that are found by full-text searches
+          is 3 characters for InnoDB search indexes, or 4 characters for MyISAM.
+        - Every correct word in the collection and in the query is weighted
+          according to its significance in the collection or query.
+          Thus, a word that is present in many documents has a lower weight,
+          because it has lower semantic value in this particular collection.
+          Conversely, if the word is rare, it receives a higher weight.
+          The weights of the words are combined to compute the relevance of the row.
+          This technique works best with large collections.
+    (3) - does not automatically sort rows in order of decreasing relevance
+        - the + and - operators indicate that a word must be present or absent,
+          respectively, for a match to occur.
+        - InnoDB full-text search only supports leading plus or minus signs.
+          For example, InnoDB supports '+apple' but does not support 'apple+'.
+          Specifying a trailing plus or minus sign causes InnoDB to report a syntax error.
+        - InnoDB full-text search does not support the use of a leading plus sign with wildcard ('+*'),
+          a plus and minus sign combination ('+-'), or leading a plus and minus sign combination ('+-apple').
+          These invalid queries return a syntax error.

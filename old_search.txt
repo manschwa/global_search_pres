@@ -1,0 +1,31 @@
+Bisherige / Alte Suche
+=============================================
+--  Veranstaltungen
+--  Archiv
+--  Personen
+    - Dateien:
+        - /public/browse.php ('controller')
+        - /templates/browse.php ('view')
+    - Kriterien:
+        - filterbar nach Einrichtungen/Veranstaltungen
+        - Vorname, Nachname
+        - KEIN username
+    - relevante Tabellen:
+        - auth_user_md5
+            - user_id
+            - username
+            - Vorname
+            - Nachname
+            - visible [yes | no | unknown | global | always]
+        - user_visibility
+            - online \
+            - search  => [0|1]
+            - email  /
+        - user_info
+            - title_front
+            - title_rear
+--  Einrichtungen
+--  Ressourcen
+    - Dateien:
+        - /lib/resources/views/ResourcesBrowse.class.php ('view')
+        - /lib/resources/resourcesControl.inc.php ('controller')

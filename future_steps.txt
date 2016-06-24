@@ -1,0 +1,48 @@
+# Entwicklerbesprechung zu Stud.IP (08.06.2016)
+
+zunächst kein externes Tool
+evtl. später (Unscharfe Suche, Volltextsuche von Dokumenten)
+
+- 'Backend':
+    - so wie bisher: 2 'neue' Tabellen search_index und search_object
+    - evtl. 2-stufige Suche wenn man Benutzer mit ihren Forenbeitraegen sucht:
+      (um die Groesse Tabellen klein zu halten)
+        zuerst Benutzer aus der search_index finden und dann mit user_id durch weitere
+        Tabellen hangeln und evtl. Vorlesungen/Forenbeitraege
+
+- GUI:
+    - fl0's Plugin als Grundlage
+    - Filter Links
+    - Ersatz des Durchblätterns wie zB bei Veranstaltungen
+    - Suche mit Attributen
+        - VA, die montags um 10 Uhr stattfinden
+    - Quicksearch?
+    - Erweiterte Suche (Attribute setzen, detailreicher)
+    - Vorlesungsuche: Finden ohne Suchbegriff (Durchblättern des Vorlesungsverzeichnisses/Vorlesungsbaum)
+    - Studienbereiche (Facette oder Kategorie?)
+    - Ergebnisanzeige:
+        - Zu findende Objekte -> Kategorien (Links)
+        - abhängig von Kategorien -> Filter (Checkboxes)
+        - Darstellung passend auf den Typ abgestimmt (siehe Activities)
+        - gemischte Ergebnisanzeige
+        - Ranking? (selbst bauen) Relevante Atribute:  - Suchbegriff im Titel stehen weiter oben in der Ergebnisliste als in der Beschreibung
+                                                       - Zeit (neue Beiträge vor älteren)
+
+- Suche:
+    - Minimallänge? (bisher 4 Zeichen)
+    - 'Informatik A' zusammen suchen, stehen beide Suchbegriffe hintereinander
+    - kurze Begriffe sollte an den vorangehenden oder den nachfolgenden angehängt werden
+    - Begriffkombination (nur Ver-&&-ung)
+    - Forenbeitraege, Wiki und Dateien sollen auch bei den Ergebnis-Links den Veranstaltungen untergeordnet sein
+      (hierarchische Darstellung) => zunaechst flache Hierarchie
+    - Kategorien sollen vorauswaehlbar sein (hier dann soetwas wie Suchen durch Klicken?!) (erste Iteration funktioniert bereits),
+      Anzeige von Ergebnissen erst, wenn die Ergebnismenge ausreichen eingeschraenkt wurde (< 50, < 100?) oder einfach die ersten 30? anzeigen.
+    - Filter pro Typ heraussuchen und anzeigen:
+        - Veranstaltungen
+            - Semester (select) \
+            - Einrichtung        => immer wählbar
+            - Studienbereich    /
+        - Dokumente (vermutlich kein sinnvoller Filter möglich)
+            . Typ? (Checkboxes: PDF, PNG, JPG, TXT,...)
+            . Groesse/Laenge (long, short,...)
+        - 

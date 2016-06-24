@@ -13,6 +13,8 @@ WUNSCHLISTE / VERBESSERUNGEN / IDEEN
 
 = Volltextindex auf bestehenden Tabellen (Stud.IP-DB)
 
+= extra Index-Tabelle in eigener DB? Activities?
+
 = Veranstaltungssuche
     - 2 Begriffe fuehren zu keinem Ergebnis
     - Bsp. 'Oliver Vornberger' findet nichts, 'Vornberger' schon
@@ -26,7 +28,7 @@ WUNSCHLISTE / VERBESSERUNGEN / IDEEN
     - Kombifilter mit Checkboxes (siehe z.B. Amazon)
         . Semester
         . Veranstaltungen (z.B.)
-    - mit 'Back'-Button einfach zurueck zur Suche
+    - mit 'Back'-Button einfach zurueck zur Suche (mit $_SESSION arbeiten)
     - Forumeintrag
         . Datum
         . Text mit den ersten 120 Zeichen
